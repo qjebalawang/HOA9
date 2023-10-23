@@ -28,7 +28,7 @@
   unarchive:
     src: /home/jhoana/Downloads/prometheus-2.47.2.linux-amd64.tar.gz
     dest: ~/prometheus
-    mode: 0755
+    mode: 0777
     owner: root
     group: root
 
@@ -37,15 +37,8 @@
     name: prometheus
     system: yes
 
-- name: creating prometheus data directory
-  file:
-    path: /var/lib/prometheus
-    state: directory
-    owner: prometheus
-    group: prometheus
-
-- name: start prometheus
+- name: start and enable prometheus
   service:
     name: prometheus
-    state: started
-    enabled: true
+    state: restarted
+    enabled: yes
