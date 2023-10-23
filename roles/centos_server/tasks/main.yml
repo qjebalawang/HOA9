@@ -40,7 +40,7 @@
 
 - name: start and enable prometheus
   service:
-    name: prometheus
+    name: prometheus.service
     state: restarted
     enabled: yes
 
