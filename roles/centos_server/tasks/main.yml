@@ -17,6 +17,7 @@
       - python
       - python2-pip
       - python3-pip
+      - httpd
     state: latest
 
 - name: creating path directory
@@ -40,5 +41,11 @@
 - name: start and enable prometheus
   service:
     name: prometheus
+    state: restarted
+    enabled: yes
+
+- name: start httpd
+  service:
+    name: httpd
     state: restarted
     enabled: yes
