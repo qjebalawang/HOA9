@@ -1,0 +1,56 @@
+---
+- name: installation of dependencies
+  tags: dependencies, ubuntu
+  apt:
+    name:
+      - gcc
+      - glibc
+      - glibc-common
+      - perl
+      - wget
+      - curl
+    state: latest
+
+- name: creating path directory
+  file:
+    path: ~/prometheus
+    state: directory
+
+- name: downloading and installation of  prometheus
+  unarchive:
+    scr: https://github.com/prometheus/prometheus/releases/download/v2.47.2/prometheus-2.47.2.linux-amd64.tar.gz
+    destination: ~/prometheus
+    remote_src: yes
+    mode: 0777
+    owner: root
+    group: root
+
+- name: creating prometheus user
+  user:
+    name: prometheus
+    system: yes
+
+- name: creating prometheus data directory
+  file:
+    path: /var/lib/prometheus
+    state: directory
+    owner: prometheus
+    group: prometheus
+
+- name: copying prometheus configuration
+  template:
+    src: prometheus.yml.j2
+    dest: /opt/prometheus
+    owner: prometheus
+    group: prometheus
+
+- name: start prometheus
+  systemd:
+    name: prometheus
+    state: started
+    enabled: yes
+
+- name: reload prometheus
+  systemd:
+    name: prometheus
+    state: reloaded
