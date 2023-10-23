@@ -4,8 +4,6 @@
   apt:
     name:
       - gcc
-      - glibc
-      - glibc-common
       - perl
       - wget
       - curl
@@ -16,12 +14,11 @@
     path: ~/prometheus
     state: directory
 
-- name: downloading and installation of  prometheus
+- name: installation of  prometheus
   unarchive:
-    scr: https://github.com/prometheus/prometheus/releases/download/v2.47.2/prometheus-2.47.2.linux-amd64.tar.gz
-    destination: ~/prometheus
-    remote_src: yes
-    mode: 0777
+    src: /home/jhoana/Downloads/prometheus-2.47.2.linux-amd64.tar.gz
+    dest: ~/prometheus
+    mode: 0755
     owner: root
     group: root
 
@@ -37,20 +34,8 @@
     owner: prometheus
     group: prometheus
 
-- name: copying prometheus configuration
-  template:
-    src: prometheus.yml.j2
-    dest: /opt/prometheus
-    owner: prometheus
-    group: prometheus
-
 - name: start prometheus
-  systemd:
+  service:
     name: prometheus
     state: started
-    enabled: yes
-
-- name: reload prometheus
-  systemd:
-    name: prometheus
-    state: reloaded
+    enabled: true

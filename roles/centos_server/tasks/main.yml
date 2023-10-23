@@ -26,10 +26,9 @@
 
 - name: downloading and installation of  prometheus
   unarchive:
-    scr: https://github.com/prometheus/prometheus/releases/download/v2.47.2/prometheus-2.47.2.linux-amd64.tar.gz
-    destination: ~/prometheus
-    remote_src: yes
-    mode: 0777
+    src: /home/jhoana/Downloads/prometheus-2.47.2.linux-amd64.tar.gz
+    dest: /usr/local/bin
+    mode: 0755
     owner: root
     group: root
 
