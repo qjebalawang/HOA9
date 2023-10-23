@@ -25,7 +25,7 @@
     path: ~/prometheus
     state: directory
 
-- name: installation of  prometheus
+- name: installation of prometheus
   unarchive:
     src: /home/jhoana/Downloads/prometheus-2.47.2.linux-amd64.tar.gz
     dest: ~/prometheus
